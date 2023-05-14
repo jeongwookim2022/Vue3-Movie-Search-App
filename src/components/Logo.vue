@@ -1,4 +1,5 @@
 <template>
+<!-- RouterLink plays a role as <a></a> tag. -->
 <RouterLink
   to="/"
   class="logo">

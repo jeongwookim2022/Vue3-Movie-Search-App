@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _uniqBy from 'lodash/uniqBy';
 
 
 export default {
@@ -63,36 +64,59 @@ export default {
     // (2) payload
     // - When using a method, the method can get data via payload.
     async searchMovies({commit, state}, payload) {
-      const { title, type, number, year } = payload
-      const OMDB_API_KEY = "7035c60c"
+      try {
+        const res = await _fetchMovie({ ...payload, page:1})
+        const{ Search, totalResults } = res.data
+        // (3) Activate 'updateState()' and Use 'Search' as a param.
+        //  - Can write commit(~~) if modify serachMovies({commit}, ~)
+        // context.commit('updateState', payload={
+        commit('updateState', {
+          movies: _uniqBy(Search, "imdbID")
+        })
 
-      const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
-      const{ Search, totalResults } = res.data
-      // (3) Activate 'assignMovies()' and Use 'Search' as a param.
-      //  - Can write commit(~~) if modify serachMovies({commit}, ~)
-      // context.commit('updateState', payload={
-      commit('updateState', {
-        movies: Search,
-      })
-      console.log(totalResults) // 346
-      console.log(typeof totalResults)
-
-      const total = parseInt(totalResults, 10) // Decimal
-      const pageLength = Math.ceil(total / 10)
+        const total = parseInt(totalResults, 10) // Decimal
+        const pageLength = Math.ceil(total / 10)
       
-      // Additional Request for the rest of movies left.
-      if (pageLength > 1) {
-        for (let page = 2; page<=pageLength; page += 1) {
-          if (page > (number / 10)) {
-            break
+        // Additional Request for the rest of movies left.
+        if (pageLength > 1) {
+          for (let page = 2; page<=pageLength; page += 1) {
+            if (page > (payload.number / 10)) {
+              break
           }
-          const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`)
+          const res = await _fetchMovie({ ...payload, page })
           const { Search } = res.data
           commit('updateState', {
-            movies: [...state.movies, ...Search]
+            movies: [...state.movies, ..._uniqBy(Search, 'imdbID')]
           })
+          }
         }
+      } catch(message) {
+        commit('updateState', {
+          movies: [],
+          message
+        })
       }
     }
   }
+}
+
+//
+function _fetchMovie(payload) {
+  const { title, type, year, page } = payload
+  const OMDB_API_KEY = "7035c60c"
+  const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+  
+  // To make _fetchMovie() work as asyn.
+  return new Promise((resolve, reject) => {
+    axios.get(url)
+      .then((res) => {
+        if(res.data.Error) {
+          reject(res.data.Error)
+        }
+        resolve(res)
+      })
+      .catch((err) => {
+        reject(err.message)
+      })
+  })
 }

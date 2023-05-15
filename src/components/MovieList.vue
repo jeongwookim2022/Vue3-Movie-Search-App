@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <div class="inner">
+      <div class="message">
+        {{ message }}
+      </div>
       <!-- For v-bind:movie="movie", object data 'movie' is sent
            to 'MovieItem' as data named 'movie' next to ':'-->
       <MovieItem
@@ -22,6 +25,9 @@ export default {
   computed: {
     movies() {
       return this.$store.state.movie.movies
+    },
+    message() {
+      return this.$store.state.movie.message
     }
   }
 }

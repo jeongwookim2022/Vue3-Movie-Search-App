@@ -20,7 +20,7 @@
         <option
           v-for="item in filter.items"
           :key="item"
-          value="">
+          >
           {{ item }}
         </option>
       </select>
@@ -41,8 +41,8 @@ export default {
       // Data definition(title, type, number, year)
       // - Can remove value="" attr in <options> above and Assign values for each data below.
       title: '',
-      type: '',
-      number: '',
+      type: 'movie',
+      number: '10',
       year: '',
 
       filters: [ // With Using 'fitlers' here, vue-for will be used to control data.

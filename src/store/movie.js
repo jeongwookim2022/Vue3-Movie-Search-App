@@ -1,24 +1,52 @@
+import axios from 'axios';
+
+
 export default {
   // 1. namespaced: It indicates that this fie(movie.js)
   // can be moduled in A Store.
   namespaced: true,
+
   // 2. Data. Just a differnce of Name.
   state: function () {
     return {
-      movies: []
+      movies: [],
+      message: '',
+      loading: false
     }
   },
+
   // 3. Computed. =.
   getters: {
-    movieIds(state) {
-      return state.movies.map(movie => movie.imdbId)
-    }
+    // EX)
+    // movieIds(state) {
+    //   return state.movies.map(movie => movie.imdbId)
+    // }
   },
+
   // 4. Methods. =.
   // 1) mutaions
   // - Can modify the data(state) by using mutations only.
   // - So, use it for modifying the data only.
   mutations: {
+    // (1) This way is too messy.
+    // assignMovies(state, Search) {
+    //   state.movies = Search
+    // }, // -->
+
+    // (2) To update date
+    updateState(state, payload) {
+      Object.keys(payload).forEach(key => {
+        // state.movies = payload.movies
+        // state.message = payload.message
+        // state.loading = payload.loading
+        //              OR
+        // state["movies"] = ["payload.movies"]
+        // state["message"] = ["payload.message"]
+        // state["loading"] = ["payload.loading"]
+        //              OR
+        state[key] = payload[key]
+      })
+    },
     resetMovies(state) {
       state.movies = []
     }
@@ -28,11 +56,23 @@ export default {
   // - Automatically "asnyc ~ await".
   // - If data(state) needed, use the term "context" as a pram.
   actions: {
+    // (1) context
     // serachMovies(context) {}
     // OR
     // serachMovies({state, getters, commit}) {}
-    serachMovies(context) {
+    // (2) payload
+    // - When using a method, the method can get data via payload.
+    async searchMovies(context, payload) {
+      const { title, type, number, year } = payload
+      const OMDB_API_KEY = "7035c60c"
 
+      const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
+      const{ Search, totalResults } = res.data
+      // (3) Activate 'assignMovies()' and Use 'Search' as a param.
+      //  - Can write commit(~~) if modify serachMovies({commit}, ~)
+      context.commit('updateState', payload={
+        movies: Search,
+      })
     }
   }
 }

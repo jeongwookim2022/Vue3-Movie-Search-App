@@ -11,7 +11,7 @@ export default {
   state: function () {
     return {
       movies: [],
-      message: '',
+      message: 'Search for the movie titles!',
       loading: false
     }
   },
@@ -64,6 +64,21 @@ export default {
     // (2) payload
     // - When using a method, the method can get data via payload.
     async searchMovies({commit, state}, payload) {
+      // if (state.loading)
+      // - For the first activation of 'searchMovies', loading is false.
+      //   And searchMovies is being activated until finished.
+      //   But, if users activates searchMovies By Clicking or Enter,
+      //   Searchmovies will be activated again. But this time it will be caught
+      //   in 'if state' and finisehd By return.
+      if (state.loading) {
+        return 
+      }
+
+      commit('updateState', {
+        message: '',
+        loading: true
+      })
+
       try {
         const res = await _fetchMovie({ ...payload, page:1})
         const{ Search, totalResults } = res.data
@@ -94,6 +109,10 @@ export default {
         commit('updateState', {
           movies: [],
           message
+        })
+      } finally {
+        commit('updateState', {
+          loading: false
         })
       }
     }

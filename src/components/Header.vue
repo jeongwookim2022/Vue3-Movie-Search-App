@@ -34,15 +34,15 @@ export default {
         },
         {
           name: 'Movies',
-          href: '/movie'
+          href: '/movie/tt4520988'
         },
         {
           name: 'About',
           href: '/about'
-        },
+        }
       ]
     }
-  },
+  }
 }
 </script>
 

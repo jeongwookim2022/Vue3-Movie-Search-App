@@ -12,7 +12,8 @@ export default {
     return {
       movies: [],
       message: 'Search for the movie titles!',
-      loading: false
+      loading: false,
+      theMovie: {}
     }
   },
 
@@ -115,15 +116,45 @@ export default {
           loading: false
         })
       }
+    },
+
+    async searchMovieWithId(context, payload) {
+      if (context.state.loading) {
+        return
+      }
+      context.commit('updateState', {
+        theMovie: {},
+        loading: true
+      })
+
+      const { id } = payload
+      try{
+        const res = await _fetchMovie({
+          id: id
+        })
+        context.commit('updateState', {
+          theMovie: res.data
+        })
+      } catch(error) {
+        context.commit('updateState', {
+          theMovie: {}
+        })
+      } finally {
+        context.commit('updateState', {
+          loading: false
+        })
+      }
     }
   }
 }
 
 //
 function _fetchMovie(payload) {
-  const { title, type, year, page } = payload
+  const { title, type, year, page, id } = payload
   const OMDB_API_KEY = "7035c60c"
-  const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+  const url = id 
+  ? `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}` 
+  : `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
   
   // To make _fetchMovie() work as asyn.
   return new Promise((resolve, reject) => {

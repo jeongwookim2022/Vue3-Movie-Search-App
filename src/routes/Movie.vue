@@ -41,6 +41,20 @@
         </div>
         <div class="ratings">
           <h3>Ratings</h3>
+          <div class="rating-wrap">
+            <!-- Will use Source as name and Value as score. -->
+            <div
+              v-for="{ Source: name, Value: score } in theMovie.Ratings"
+              :key="name"
+              :title="name"
+              class="rating">
+              <img 
+                :src="`https://raw.githubusercontent.com/jeongwookim2022/src-vue-movie-app/main/${name}.png`"
+                
+                :alt="name" />
+              <span>{{ score }}</span>
+            </div>
+          </div>
         </div>
         <div>
           <h3>Actors</h3>
@@ -170,7 +184,19 @@ export default {
       margin-top: 20px;
     }
     .ratings {
-
+      .rating-wrap {
+        display: flex;
+        .rating {
+          display: flex;
+          align-items: center;
+          margin-right: 32px;
+          img {
+            height: 30px; // Let the rate of Img By giving height val.
+            flex-shrink: 0;
+            margin-right: 6px;
+          }
+        }
+      }
     }
     h3 {
       margin: 24px 0 6px;

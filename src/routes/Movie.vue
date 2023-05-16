@@ -10,12 +10,21 @@
         <div class="skeleton etc"></div>
       </div>
     </div>
+    <Loader 
+      v-bind:size="3"
+      v-bind:z-index="9"
+      v-bind:fixed="true" />
   </div>
 </template>
 
 
 <script>
+import Loader from '~/components/Loader.vue'
+
 export default {
+  components: {
+    Loader
+  },
   // As soon as component is created.
   created() {
     this.$store.dispatch('movie/searchMovieWithId', {

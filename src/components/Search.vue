@@ -85,6 +85,8 @@ export default {
 
 
 <style lang="scss" scoped>
+@import "~/scss/main.scss";
+
 .container {
   display: flex;
   > * {
@@ -109,6 +111,26 @@ export default {
     height: 50px;
     font-weight: 700;
     flex-shrink: 0;
+  }
+  @include media-breakpoint-down(lg) {
+    // .container is display:flex and this @include paragraph
+    // is in container. 
+    // display: block; will lie Els vertically. 
+    display: block;
+    input {
+      margin-right: 0;
+      margin-bottom: 10px ;
+    }
+    .selects {
+      margin-right: 0;
+      margin-bottom: 10px;
+      select {
+        width: 100%;
+      }
+    }
+    .btn {
+      width: 100%;
+    }
   }
 }
 </style>

@@ -2,6 +2,10 @@
   <div 
     v-bind:style="{ backgroundImage: `url(${movie.Poster})` }"
     class="movie">
+    <Loader 
+      v-if="imageLoading"
+      :size="1.5"
+      :absolute="true" />
     <div class="info">
       <div class="year">
         {{ movie.Year }}
@@ -14,7 +18,13 @@
 </template>
 
 <script>
+import Loader from '~/components/Loader.vue'
+
 export default {
+  components: {
+    Loader
+  },
+
   // "props"
   // Getting data From A Parent component 'MovieList.vue'
   // 1) If type is Object or Array, defaut should be a Function
@@ -23,6 +33,22 @@ export default {
     movie: {
       type: Object,
       default: function() { return {} }
+    }
+  },
+  data() {
+    return {
+      imageLoading: true
+    }
+  },
+  // As soon as MovieItem component is connected to HTML.
+  // init() method will be activated.
+  mounted() {
+    this.init()
+  },
+  methods: {
+    async init() {
+      await this.$loadImage(this.movie.Poster)
+      this.imageLoading = false
     }
   }
 }

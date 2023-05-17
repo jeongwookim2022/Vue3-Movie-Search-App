@@ -2,6 +2,7 @@ import axios from 'axios';
 import _uniqBy from 'lodash/uniqBy';
 
 
+const _defaultMessage = 'Search for the movie titles!'
 export default {
   // 1. namespaced: It indicates that this fie(movie.js)
   // can be moduled in A Store.
@@ -11,7 +12,7 @@ export default {
   state: function () {
     return {
       movies: [],
-      message: 'Search for the movie titles!',
+      message: _defaultMessage,
       loading: false,
       theMovie: {}
     }
@@ -49,8 +50,11 @@ export default {
         state[key] = payload[key]
       })
     },
+    // Initialize the states for situations(EX.Back to Main page after seeing details).
     resetMovies(state) {
       state.movies = []
+      state.message = _defaultMessage
+      state.loading = false
     }
   },
   // 2) actions

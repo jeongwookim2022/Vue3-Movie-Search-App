@@ -13,6 +13,11 @@ export default createRouter({
   // - EX) https://google.com/#/search
   history: createWebHashHistory(),
 
+  // Always Be on Top
+  scrollBehavior() {
+    return { top: 0 }
+  },
+
   // Each pages
   routes: [
     {

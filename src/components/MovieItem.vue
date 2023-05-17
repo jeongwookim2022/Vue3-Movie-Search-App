@@ -1,5 +1,6 @@
 <template>
-  <div 
+  <RouterLink 
+    v-bind:to="`/movie/${movie.imdbID}`"
     v-bind:style="{ backgroundImage: `url(${movie.Poster})` }"
     class="movie">
     <Loader 
@@ -14,7 +15,7 @@
         {{ movie.Title }}
       </div>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <script>
@@ -48,7 +49,7 @@ export default {
   methods: {
     async init() {
       const poster = this.movie.Poster
-      
+
       if (!poster || poster === 'N/A') {
         this.imageLoading = false
       } else {

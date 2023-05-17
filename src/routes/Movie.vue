@@ -82,6 +82,7 @@
 
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import Loader from '~/components/Loader.vue'
 
 export default {
@@ -94,12 +95,17 @@ export default {
     }
   },
   computed: {
-    theMovie() {
-      return this.$store.state.movie.theMovie
-    },
-    loading() {
-      return this.$store.state.movie.loading
-    }
+    // theMovie() {
+    //   return this.$store.state.movie.theMovie
+    // },
+    // loading() {
+    //   return this.$store.state.movie.loading
+    // }
+    // ----> Replaced by 'mapState' from vuex.
+    ...mapState('movie', [
+      'theMovie',
+      'loading'
+    ])
   },
 
   // As soon as component is created.

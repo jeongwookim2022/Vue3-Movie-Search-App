@@ -23,7 +23,9 @@
 
 
 <script>
+import { mapState } from 'vuex'
 import Loader from "~/components/Loader.vue"
+
 
 export default {
   components: {
@@ -36,24 +38,33 @@ export default {
   },
 
   computed: {
-    image() {
-      return this.$store.state.about.image
-    },
-    name() {
-      return this.$store.state.about.name
-    },
-    email() {
-      return this.$store.state.about.email
-    },
-    blog() {
-      return this.$store.state.about.blog
-    },
-    phone() {
-      return this.$store.state.about.phone
-    },
-    address() {
-      return this.$store.state.about.address
-    }
+    // image() {
+    //   return this.$store.state.about.image
+    // },
+    // name() {
+    //   return this.$store.state.about.name
+    // },
+    // email() {
+    //   return this.$store.state.about.email
+    // },
+    // blog() {
+    //   return this.$store.state.about.blog
+    // },
+    // phone() {
+    //   return this.$store.state.about.phone
+    // },
+    // address() {
+    //   return this.$store.state.about.address
+    // }
+    // ----> Replace by 'mapState' from vuex.
+    ...mapState('about', [
+      'image',
+      'name',
+      'email',
+      'blog',
+      'phone',
+      'address'
+    ])
   },
   mounted() {
     this.init()

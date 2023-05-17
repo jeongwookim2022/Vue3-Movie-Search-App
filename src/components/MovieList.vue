@@ -49,7 +49,7 @@ export default {
 
 
 <style lang="scss">
-@import "~/scss/main.scss";
+// @import "~/scss/main.scss"; // -> Replaced
 
 .container {
   margin-top: 30px;

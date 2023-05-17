@@ -21,7 +21,6 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "~/scss/main.scss";
-
-
+  // @import "~/scss/main.scss";
+  // - Replaced by webpack.config.js -> module -> rules 
 </style>

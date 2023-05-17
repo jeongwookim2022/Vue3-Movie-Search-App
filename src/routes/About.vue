@@ -69,7 +69,7 @@ export default {
 
 
 <style lang="scss">
-@import "~/scss/main.scss";
+// @import "~/scss/main.scss"; // -> Replaced
 
 .about {
   text-align: center;

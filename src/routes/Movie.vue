@@ -129,7 +129,7 @@ export default {
 
 
 <style lang="scss" scoped>
-@import "~/scss/main.scss";
+// @import "~/scss/main.scss"; // -> Replaced
 
 .container {
   padding-top: 40px;

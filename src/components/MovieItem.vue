@@ -63,7 +63,7 @@ export default {
 
 
 <style lang="scss" scoped>
-@import "~/scss/main.scss";
+// @import "~/scss/main.scss"; // -> Replaced
 
 .movie {
   $width: 168px;

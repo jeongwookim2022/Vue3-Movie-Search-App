@@ -11,7 +11,7 @@
 
 
 <style lang="scss" scoped>
-@import "~/scss/main.scss";
+// @import "~/scss/main.scss"; // -> Replaced
 
 .not-found {
   line-height: 1.2;

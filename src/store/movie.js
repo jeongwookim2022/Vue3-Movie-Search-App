@@ -9,6 +9,8 @@ export default {
   namespaced: true,
 
   // 2. Data. Just a differnce of Name.
+  // 'state'
+  // - 'data' and 'state' Should be a function so that it won't be duplicated.
   state: function () {
     return {
       movies: [],
@@ -131,11 +133,9 @@ export default {
         loading: true
       })
 
-      const { id } = payload
+      // const { id } = payload
       try{
-        const res = await _fetchMovie({
-          id: id
-        })
+        const res = await _fetchMovie(payload)
         context.commit('updateState', {
           theMovie: res.data
         })

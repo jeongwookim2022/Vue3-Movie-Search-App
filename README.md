@@ -9,4 +9,5 @@
 ![Screenshot (1436)](https://github.com/jeongwookim2022/Vue3-Movie-Search-App/assets/109917393/40867466-7e48-4c91-9ab7-d4e2a71dff1d)
 
 ### 3. About a developer page.
-![Screenshot (1437)](https://github.com/jeongwookim2022/Vue3-Movie-Search-App/assets/109917393/65300781-7e02-45d1-bdcb-0b29953978ed)
+![Screenshot (1438)](https://github.com/jeongwookim2022/Vue3-Movie-Search-App/assets/109917393/f7e1db26-9e48-4b6f-98aa-cbb676be1465)
+

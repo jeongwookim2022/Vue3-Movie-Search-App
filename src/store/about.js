@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: () => ({
-    name: "Jeongwo Kim",
+    name: "Jeongwoo Kim",
     blog: "https://github.com/jeongwookim2022",
     email: "jeongwookim124068@gmail.com",
     phone: "+46 0704914875",
